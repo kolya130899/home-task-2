@@ -1,0 +1,48 @@
+.create-course__row {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+	align-items: center;
+}
+.create-course__row:last-of-type {
+	padding: 30px 15px;
+	border: 2px solid #000;
+	align-items: start;
+}
+.create-course__row--top {
+	align-items: flex-end;
+}
+.create-course .textarea {
+	margin: 15px 0;
+}
+.create-course__add-new {
+	flex: 1 1 50%;
+	max-width: 45%;
+	text-align: center;
+}
+.create-course__add-new .input {
+	text-align: left;
+}
+.create-course__add-new .input ~ .btn {
+	margin-top: 20px;
+}
+.create-course__add-new .input > input {
+	width: 100%;
+}
+.create-course__add-new > h3:not(:first-of-type) {
+	margin-top: 40px;
+}
+.create-course__available-authors {
+	list-style: none;
+	padding-left: 0;
+}
+
+.create-course__available-authors > li {
+	display: flex;
+	flex-flow: row;
+	justify-content: space-between;
+	align-items: center;
+}
+.create-course__available-authors > li:not(:last-child) {
+	margin-bottom: 10px;
+}

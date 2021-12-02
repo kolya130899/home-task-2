@@ -1,0 +1,32 @@
+.courses-card {
+	border: 3px solid #9cbeaf;
+	padding: 10px 15px;
+}
+.courses-card:not(:last-child) {
+	margin-bottom: 20px;
+}
+.courses-card__content {
+	display: flex;
+	flex-flow: row wrap;
+	justify-content: space-between;
+}
+.courses-card__column:first-child {
+	flex: 2 2 70%;
+	padding-right: 60px;
+	box-sizing: border-box;
+}
+.courses-card__column:last-child {
+	flex: 1 1 30%;
+}
+.courses-card__title {
+	margin-top: 0;
+}
+.courses-card__column > p {
+	margin: 0 0 1em;
+	text-align: left;
+}
+.courses-card__column > .btn {
+	display: block;
+	max-width: 80%;
+	margin: 0 auto;
+}

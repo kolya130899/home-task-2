@@ -1,0 +1,12 @@
+textarea {
+	display: block;
+	width: 100%;
+	border: 2px solid #f7f7c0;
+	outline: none;
+	padding: 15px;
+	box-sizing: border-box;
+	resize: none;
+}
+.textarea > textarea:focus {
+	border-color: #d4a272;
+}

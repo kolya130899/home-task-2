@@ -1,0 +1,23 @@
+.header {
+	padding: 15px;
+}
+.header__container {
+	display: flex;
+	flex-direction: row;
+	align-items: center;
+	border: 3px solid #faabad;
+	padding: 10px 15px;
+}
+.separator {
+	flex: 1 1 auto;
+}
+.header__logo-container > img {
+	vertical-align: middle;
+}
+.header__username {
+	margin-right: 20px;
+	font-weight: 700;
+}
+.btn.btn--header {
+	font-size: 14px;
+}

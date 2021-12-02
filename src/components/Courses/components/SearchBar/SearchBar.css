@@ -1,0 +1,16 @@
+.search-bar {
+	display: flex;
+	flex-flow: row nowrap;
+}
+.search-bar > div {
+	flex: 3 3 75%;
+}
+.search-bar input {
+	width: 100%;
+	height: 100%;
+}
+.search-bar > .btn {
+	margin-left: 15px;
+	flex: 1 1 25%;
+	box-sizing: border-box;
+}

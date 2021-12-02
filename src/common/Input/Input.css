@@ -1,0 +1,14 @@
+input {
+	display: block;
+	border: 2px solid #ecd7c3;
+	outline: none;
+	box-sizing: border-box;
+	padding: 9px 15px;
+}
+input:focus {
+	border-color: #d4a272;
+}
+label {
+	display: inline-block;
+	margin-bottom: 3px;
+}
