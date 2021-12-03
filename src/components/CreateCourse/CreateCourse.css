@@ -46,3 +46,9 @@
 .create-course__available-authors > li:not(:last-child) {
 	margin-bottom: 10px;
 }
+.duration-value {
+	font-size: 1.5em;
+}
+.duration-value > b {
+	font-size: 2em;
+}

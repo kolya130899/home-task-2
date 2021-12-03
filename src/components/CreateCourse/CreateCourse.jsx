@@ -1,32 +1,40 @@
-import { createRef, useRef, useState } from 'react';
+import { useState, useRef } from 'react';
+import { v4 as uuid } from 'uuid';
 
 import Button from '../../common/Button/Button';
 import Input from '../../common/Input/Input';
+import Textarea from '../../common/Textarea/Textarea';
+
 import {
 	BUTTON_TEXT,
 	INPUT_PLACEHOLDER,
 	LABEL_TEXT,
 	mockedAuthorsList,
+	mockedCoursesList,
 } from '../../constants';
 
 import './CreateCourse.css';
 
 import { pipeDuration } from '../../helpers/pipeDuration';
-import Textarea from '../../common/Textarea/Textarea';
+import { dateGenerator } from '../../helpers/dateGenerator';
 
-const CreateCourse = () => {
+const initialAuthor = {
+	id: '',
+	name: '',
+};
+
+const CreateCourse = ({ handleAddCourse }) => {
 	const [formData, setFormData] = useState({
+		id: uuid(),
+		title: '',
+		description: '',
+		creationDate: dateGenerator(),
+		duration: '',
 		authors: [],
-		duration: '00:00',
 	});
-	const authorsElementsArrRef = useRef(
-		mockedAuthorsList.map(() => createRef())
-	);
+	const [newAuthor, setNewAuthor] = useState(initialAuthor);
 
-	const handleDurationChange = (e) => {
-		let date = pipeDuration(e.target.value);
-		setFormData({ ...formData, duration: date });
-	};
+	const addAuthorInput = useRef();
 
 	const handleKeyPress = (e) => {
 		if (48 < e.charCode && e.charCode > 57) {
@@ -34,21 +42,86 @@ const CreateCourse = () => {
 		}
 	};
 
-	const handleAddAuthorBtnClick = (id, index) => {
+	const handleAddAuthorBtnClick = (id) => {
 		setFormData({ ...formData, authors: [...formData.authors, id] });
+	};
 
-		authorsElementsArrRef.current[index].current.style.display = 'none';
+	const handleInputChange = (e) => {
+		setFormData({ ...formData, [e.target.id]: e.target.value });
+	};
+
+	const handleDeleteAuthor = (index) => {
+		let authors = formData.authors;
+		authors.splice(index, 1);
+
+		setFormData({ ...formData, ...authors });
+	};
+
+	const handleCreateAuthorInputChange = (e) => {
+		if (!e.target.value) {
+			e.target.style = 'border-color: red';
+			setNewAuthor({ ...newAuthor, name: e.target.value });
+		} else {
+			e.target.removeAttribute('style');
+			let authorId = uuid();
+			setNewAuthor({ id: authorId, name: e.target.value });
+		}
+	};
+
+	const handleCreateAuthorBtnClick = () => {
+		if (!addAuthorInput.current.value) {
+			addAuthorInput.current.style = 'border-color: red';
+		} else {
+			addAuthorInput.current.removeAttribute('style');
+
+			mockedAuthorsList.push(newAuthor);
+			setNewAuthor(initialAuthor);
+		}
+	};
+
+	const handleDurationChange = (e) => {
+		const { value } = e.target;
+
+		if (Number(value)) {
+			setFormData({ ...formData, duration: value });
+			e.target.removeAttribute('style');
+		} else {
+			setFormData({ ...formData, duration: '' });
+			e.target.style = 'border-color: red';
+		}
+	};
+
+	const isExists = (item) => {
+		if (typeof item !== 'string') {
+			return item.length;
+		} else {
+			return item;
+		}
+	};
+
+	const handleFormSubmit = (e) => {
+		e.preventDefault();
+		console.log(formData);
+		if (Object.values(formData).every(isExists)) {
+			mockedCoursesList.push(formData);
+
+			handleAddCourse();
+		} else {
+			alert('Please fill in all fields');
+		}
 	};
 
 	return (
 		<section className='create-course'>
-			<form>
+			<form onSubmit={handleFormSubmit}>
 				<div className='create-course__row create-course__row--top'>
 					{/* TITLE INPUT */}
 					<Input
 						placeholder={INPUT_PLACEHOLDER.enterTitle}
 						id='title'
 						labelText={LABEL_TEXT.title}
+						onChange={handleInputChange}
+						value={formData.title}
 					/>
 
 					{/* CREATE COURSE BUTTON */}
@@ -60,6 +133,8 @@ const CreateCourse = () => {
 					id='description'
 					labelText={LABEL_TEXT.description}
 					placeholder={INPUT_PLACEHOLDER.description}
+					onChange={handleInputChange}
+					minLength='2'
 				/>
 
 				<div className='create-course__row'>
@@ -70,25 +145,42 @@ const CreateCourse = () => {
 							placeholder={INPUT_PLACEHOLDER.enterAuthorName}
 							id='authorName'
 							labelText={LABEL_TEXT.authorName}
+							onChange={handleCreateAuthorInputChange}
+							value={newAuthor.name}
+							ref={addAuthorInput}
 						/>
-						<Button buttonText={BUTTON_TEXT.createAuthor} />
+						<Button
+							buttonText={BUTTON_TEXT.createAuthor}
+							onClick={handleCreateAuthorBtnClick}
+						/>
 					</div>
 
 					{/* ADD AUTHOR TO COURSE AUTHORS LIST */}
 					<div className='create-course__add-new'>
 						<h3>Authors</h3>
 						<ul className='create-course__available-authors'>
-							{mockedAuthorsList.map((item, index) => (
-								<li key={index} ref={authorsElementsArrRef.current[index]}>
-									<span>{item.name}</span>
-									<Button
-										buttonText={BUTTON_TEXT.addAuthor}
-										onClick={() => handleAddAuthorBtnClick(item.id, index)}
-									/>
-								</li>
-							))}
+							{formData.authors.length < mockedAuthorsList.length ? (
+								mockedAuthorsList
+									.filter((item) => {
+										return formData.authors.indexOf(item.id) !== -1
+											? false
+											: true;
+									})
+									.map((item, index) => (
+										<li key={index}>
+											<span>{item.name}</span>
+											<Button
+												buttonText={BUTTON_TEXT.addAuthor}
+												onClick={() => handleAddAuthorBtnClick(item.id)}
+											/>
+										</li>
+									))
+							) : (
+								<li>Author list is empty</li>
+							)}
 						</ul>
 					</div>
+
 					{/* DURATION */}
 					<div className='create-course__add-new'>
 						<h3>Duration</h3>
@@ -98,20 +190,36 @@ const CreateCourse = () => {
 							labelText={LABEL_TEXT.duration}
 							onChange={handleDurationChange}
 							onKeyPress={handleKeyPress}
+							value={formData.duration}
 						/>
-						<p>
-							Duration <b>{formData.duration}</b> hours
+						<p className='duration-value'>
+							Duration: <b>{pipeDuration(formData.duration)}</b> hours
 						</p>
 					</div>
+
 					{/* COURSE AUTHORS LIST */}
 					<div className='create-course__add-new'>
 						<h3>Course authors</h3>
 						<ul className='create-course__available-authors'>
-							{formData.authors.length
-								? formData.authors.map((item, index) => (
-										<li key={index}>{item.name}</li>
-								  ))
-								: 'Author list is empty'}
+							{formData.authors.length ? (
+								mockedAuthorsList
+									.filter((item) => {
+										return formData.authors.indexOf(item.id) === -1
+											? false
+											: true;
+									})
+									.map((item, index) => (
+										<li key={index}>
+											<span>{item.name}</span>
+											<Button
+												buttonText={BUTTON_TEXT.deleteCourseAuthor}
+												onClick={() => handleDeleteAuthor(index)}
+											/>
+										</li>
+									))
+							) : (
+								<li>Author list is empty</li>
+							)}
 						</ul>
 					</div>
 				</div>

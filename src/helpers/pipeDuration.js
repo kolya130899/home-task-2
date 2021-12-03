@@ -1,8 +1,12 @@
 export const pipeDuration = (initialDate) => {
-	let hours = Math.floor(initialDate / 60);
-	let minutes = initialDate - hours * 60;
+	if (initialDate) {
+		let hours = Math.floor(initialDate / 60);
+		let minutes = initialDate - hours * 60;
 
-	return `${checkValueIsValid(hours)}:${checkValueIsValid(minutes)}`;
+		return `${checkValueIsValid(hours)}:${checkValueIsValid(minutes)}`;
+	} else {
+		return '00:00';
+	}
 };
 
 const checkValueIsValid = (value) => {

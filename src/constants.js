@@ -62,6 +62,7 @@ export const BUTTON_TEXT = {
 	addAuthor: 'Add author',
 	createCourse: 'Create course',
 	createAuthor: 'Create author',
+	deleteCourseAuthor: 'Delete author',
 };
 
 export const INPUT_PLACEHOLDER = {

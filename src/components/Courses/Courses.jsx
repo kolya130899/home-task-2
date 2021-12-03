@@ -15,12 +15,13 @@ import './Courses.css';
 
 const Courses = ({ handleAddCourse }) => {
 	const [searchVal, setSearchVal] = useState('');
-	const [courses, setCourses] = useState(mockedCoursesList);
 
 	// handle input value change
 	const handleSearchValChange = (value) => {
 		setSearchVal(value);
 	};
+
+	const [courses, setCourses] = useState(mockedCoursesList);
 
 	// get course authors names from mocked authors list
 	const getCourseAuthorsNames = (autorsList, courseAuthorsIds) => {
