@@ -1,3 +1,5 @@
+import PropTypes from 'prop-types';
+
 import Button from '../../../../common/Button/Button';
 import Input from '../../../../common/Input/Input';
 
@@ -5,9 +7,9 @@ import { BUTTON_TEXT, INPUT_PLACEHOLDER } from '../../../../constants';
 
 import './SearchBar.css';
 
-const SearchBar = (props) => {
+const SearchBar = ({ searchVal, handleSearchClick, handleSearchValChange }) => {
 	const onChange = (e) => {
-		props.handleSearchValChange(e.target.value);
+		handleSearchValChange(e.target.value);
 	};
 
 	return (
@@ -16,14 +18,23 @@ const SearchBar = (props) => {
 				placeholder={INPUT_PLACEHOLDER.searchCourse}
 				id='search'
 				{...{ onChange }}
-				value={props.searchVal}
+				value={searchVal}
 			/>
-			<Button
-				buttonText={BUTTON_TEXT.search}
-				onClick={props.handleSearchClick}
-			/>
+			<Button buttonText={BUTTON_TEXT.search} onClick={handleSearchClick} />
 		</div>
 	);
+};
+
+SearchBar.propType = {
+	searchVal: PropTypes.string.isRequired,
+	handleSearchClick: PropTypes.func.isRequired,
+	handleSearchValChange: PropTypes.func.isRequired,
+};
+
+SearchBar.defaultProps = {
+	searchVal: '',
+	handleSearchClick: () => {},
+	handleSearchValChange: () => {},
 };
 
 export default SearchBar;

@@ -12,3 +12,6 @@ label {
 	display: inline-block;
 	margin-bottom: 3px;
 }
+.input {
+	text-align: left;
+}

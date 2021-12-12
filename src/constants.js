@@ -63,6 +63,8 @@ export const BUTTON_TEXT = {
 	createCourse: 'Create course',
 	createAuthor: 'Create author',
 	deleteCourseAuthor: 'Delete author',
+	register: 'Registration',
+	login: 'Login',
 };
 
 export const INPUT_PLACEHOLDER = {
@@ -71,14 +73,21 @@ export const INPUT_PLACEHOLDER = {
 	enterAuthorName: 'Enter author name...',
 	duration: 'Enter duration in minutes...',
 	description: 'Enter description...',
+	enterName: 'Enter name',
+	enterEmail: 'Enter email',
+	enterPassword: 'Enter password',
 };
 export const LABEL_TEXT = {
 	authorName: 'Author name',
 	duration: 'Duration',
 	title: 'Title',
 	description: 'Description',
+	userName: 'Name',
+	userEmail: 'Email',
+	userPassword: 'Password',
 };
 
 export const ERRORS = {
 	noSuchCourse: "Such courses don't exist",
+	noPage: "The page doesn't exist",
 };

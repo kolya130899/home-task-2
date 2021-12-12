@@ -1,0 +1,17 @@
+.course-info__title {
+	text-align: center;
+	font-size: 32px;
+}
+.course-info__container {
+	display: flex;
+	flex-flow: row;
+}
+.course-info__container > div:nth-of-type(1) {
+	flex: 2 2 60%;
+}
+.course-info__container > div:nth-of-type(2) {
+	flex: 1 1 5%;
+}
+.course-info__container > div:nth-of-type(4) {
+	flex: 1 1 35%;
+}

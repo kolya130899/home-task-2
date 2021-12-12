@@ -1,18 +1,15 @@
-.header {
-	padding: 15px;
-}
-.header__container {
+.block__content.block__content--header {
 	display: flex;
 	flex-direction: row;
 	align-items: center;
-	border: 3px solid #faabad;
+	border-color: #faabad;
 	padding: 10px 15px;
 }
 .separator {
 	flex: 1 1 auto;
 }
 .header__logo-container > img {
-	vertical-align: middle;
+	vertical-align: bottom;
 }
 .header__username {
 	margin-right: 20px;
