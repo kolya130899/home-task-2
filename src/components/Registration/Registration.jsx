@@ -12,10 +12,8 @@ import useAuth from '../../hooks/useAuth';
 
 const initialState = {
 	name: '',
-	data: {
-		email: '',
-		password: '',
-	},
+	email: '',
+	password: '',
 };
 
 const Registration = () => {
@@ -32,7 +30,7 @@ const Registration = () => {
 					placeholder={INPUT_PLACEHOLDER.enterName}
 					onChange={(e) =>
 						dispatch({
-							type: 'ADD_USERNAME',
+							type: 'INPUT_CHANGE',
 							payload: { ...{ e, errors, handleSetErrors } },
 						})
 					}
@@ -48,7 +46,7 @@ const Registration = () => {
 					placeholder={INPUT_PLACEHOLDER.enterEmail}
 					onChange={(e) =>
 						dispatch({
-							type: 'ADD_EMAIL',
+							type: 'INPUT_CHANGE',
 							payload: { ...{ e, errors, handleSetErrors } },
 						})
 					}
@@ -64,7 +62,7 @@ const Registration = () => {
 					placeholder={INPUT_PLACEHOLDER.enterPassword}
 					onChange={(e) =>
 						dispatch({
-							type: 'ADD_PASSWORD',
+							type: 'INPUT_CHANGE',
 							payload: { ...{ e, errors, handleSetErrors } },
 						})
 					}

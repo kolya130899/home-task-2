@@ -20,7 +20,7 @@ Textarea.propTypes = {
 	labelText: PropTypes.string,
 	placeholder: PropTypes.string.isRequired,
 	onChange: PropTypes.func.isRequired,
-	minLength: PropTypes.number,
+	minLength: PropTypes.string,
 };
 
 Textarea.defaultProps = {

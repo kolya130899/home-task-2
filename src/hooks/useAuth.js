@@ -7,11 +7,7 @@ const reducer = (state, action) => {
 	const { payload } = action;
 
 	switch (action.type) {
-		case 'ADD_USERNAME':
-			return handleInputChange(state, payload);
-		case 'ADD_EMAIL':
-			return handleInputChange(state, payload);
-		case 'ADD_PASSWORD':
+		case 'INPUT_CHANGE':
 			return handleInputChange(state, payload);
 		default:
 			throw new Error();

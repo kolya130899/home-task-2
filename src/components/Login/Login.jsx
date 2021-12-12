@@ -1,5 +1,5 @@
 import { useRef, createRef } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 import Input from '../../common/Input/Input';
 import Button from '../../common/Button/Button';
@@ -9,6 +9,8 @@ import { INPUT_PLACEHOLDER, LABEL_TEXT, BUTTON_TEXT } from '../../constants';
 import { api } from '../../api/users';
 
 import useAuth from '../../hooks/useAuth';
+import { AuthConsumer } from '../../hooks/useUser';
+import { useEffect } from 'react/cjs/react.development';
 
 const initialState = {
 	email: '',
@@ -19,6 +21,14 @@ const Login = () => {
 	const inputsRef = useRef(Object.keys(initialState).map(() => createRef()));
 	const { authData, dispatch, handleFormSubmit, errors, handleSetErrors } =
 		useAuth(initialState, inputsRef, '/courses', api.loginUser);
+	const { isLoggedIn } = AuthConsumer();
+	const navigate = useNavigate();
+
+	useEffect(() => {
+		if (isLoggedIn) {
+			navigate('/courses');
+		}
+	});
 
 	return (
 		<div className='block__content block__content--main auth'>
@@ -29,7 +39,7 @@ const Login = () => {
 					placeholder={INPUT_PLACEHOLDER.enterEmail}
 					onChange={(e) =>
 						dispatch({
-							type: 'ADD_EMAIL',
+							type: 'INPUT_CHANGE',
 							payload: { ...{ e, errors, handleSetErrors } },
 						})
 					}
@@ -45,7 +55,7 @@ const Login = () => {
 					placeholder={INPUT_PLACEHOLDER.enterPassword}
 					onChange={(e) =>
 						dispatch({
-							type: 'ADD_PASSWORD',
+							type: 'INPUT_CHANGE',
 							payload: { ...{ e, errors, handleSetErrors } },
 						})
 					}

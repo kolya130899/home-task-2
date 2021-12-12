@@ -55,7 +55,6 @@ const CreateCourse = () => {
 	};
 
 	const isExists = (item) => {
-		console.log(typeof item);
 		return (item || item.length) && item;
 	};
 
